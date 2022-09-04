@@ -1,0 +1,439 @@
+body{
+    background: rgb(243, 243, 243);
+}
+
+
+.login{
+    width: 350px;
+    margin: 15px auto;
+}
+
+.login h3{
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+.login input{
+    margin-bottom: 10px;
+}
+
+.login .form-control{
+    background-color: #eee
+}
+
+.login .btn{
+    background-color: rgb(27, 27, 27);
+    border: none;
+}
+
+.login .btn:focus{
+    background-color: rgb(27, 27, 27);
+    outline: 2px solid black;
+}
+
+
+/* Bootstrap Start  */
+
+.mynav{
+    background: black;
+    padding: 0 5rem;
+    margin-bottom: 20px;
+}
+
+.nav-link {
+    padding: 1rem;
+}
+
+.navbar-dark .navbar-nav .show>.nav-link,
+.dropdown-menu,
+.navbar-dark .navbar-nav .nav-link:hover
+{
+    background: #343a40;
+}
+
+.dropdown-menu{
+    min-width: 15rem;
+    left: -113px;
+    top: 97.2%;
+}
+
+.dropdown-item {
+    color: white;
+}
+
+.dropdown-item:hover {
+    padding: 0.25rem 1.7rem;
+}
+
+
+/* Start Edit Profile */
+
+h1{
+    font-size: 50px;
+    margin: 30px 0;
+    color: #555;
+}
+
+.edit-label{
+    margin-right: 0;
+}
+
+
+/* End Edit Profile */
+
+/* Start Add buttons */
+
+.btn-add-user,
+.btn-add-cat{
+    margin: 25px -18px;
+    padding: 10px 15px;
+    width: 61%;
+} 
+
+
+
+
+
+
+
+/* Start Add Profile */
+
+.show-pass{
+    position: absolute;
+    top: 11px;
+    right: 25px;
+    cursor:pointer;
+    color: #666;
+}
+
+
+.btn-update-cat{
+    margin: 25px -18px;
+    padding: 10px 15px;
+    width: 60%;
+}
+
+/* End Add Profile */
+
+/* Start Manage Page */
+.main-table tr:first-child td{
+    background: #333;
+    color: white;
+
+}
+
+.table td{
+    vertical-align: middle;
+    background: white;
+}
+
+.table{
+    box-shadow: 0 3px 20px #ccc;
+
+}
+
+/* Avatar Img  */
+.avatar-img{
+    width: 50px;
+    height: 50px;
+}
+.btn-info{
+    margin-left: 5px;
+}
+
+.sub-cat-manage{
+    display: inline;
+    margin: 2px 5px;
+    padding: 2px 10px;
+    color: grey;
+    background: rgba(0, 0, 0, 0.082);
+}
+
+/* End Manage Page */
+
+
+/* Start empty manage page */
+
+.empty-box .empty-msg{
+
+    background: white;
+    padding: 15px 10px;
+    margin: 35px 10px;
+    border-left: 4px solid red;
+    font-size: 20px;
+    color: #777;
+
+}
+.empty-box .fa-comments,
+.empty-box .fa-tags,
+.empty-box .fa-tag,
+.empty-box .fa-users{
+    color: red;
+}
+
+.empty-box .btn{
+    margin-left: 10px;
+    margin-top: 5px;
+    width: 150px;
+}
+/* End empty manage page */
+
+
+/* Start Dashboard Page */
+
+
+.stat{
+    background: #ccc;
+    padding: 20px;
+    border: 1px solid #aaa;
+    font-size: 15px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.info{
+    float: right;
+}
+
+.stat i{
+    position: absolute;
+    font-size: 70px;
+    top: 30px;
+    right: 140px;
+
+}
+
+.stat span{
+    display: block;
+    font-size: 50px;
+    color: black
+}
+
+.stat a{
+    color: white;
+    text-decoration: none;
+}
+
+.latest{
+    margin-top: 25px;
+}
+
+.stat span{
+    color: white;
+}
+
+.st-members{
+    background: #3498db;
+    color: white;
+}
+
+.st-pending{
+    background: #c0392b;
+    color: white;
+}
+
+.st-items{
+    background: #d35400;
+    color: white;
+}
+
+.st-comments{
+    background: #8e448e;
+    color: white;
+}
+
+.panel-heading{
+    background: rgb(248, 248, 248);
+    padding: 5px 20px;
+    border: 2px solid #eee;
+
+}
+
+.panel-heading .toggle-info i{
+    cursor: pointer;
+    color: #aaa;
+}
+.panel-heading .toggle-info i:hover{
+    color: #333;
+}
+
+.panel-body{
+    border: 2px solid #eee;
+    background: white;
+    padding: 10px 15px;
+    border-top: none;
+}
+
+.latest-user{
+    margin: 5px;
+    
+}
+
+.list-group{
+    margin-top: 8px;
+}
+
+.list-group-item{
+    padding: 0.8rem 1.25rem;
+}
+
+.list-group-item:nth-child(odd){
+    background: #eee;
+}
+
+.btn-edit{
+    padding: 3px 15px;
+    
+}
+
+.btn-info-dashboard{
+    padding: 3px 15px;
+    margin-right: 5px;
+}
+
+.user-p{
+    margin-top: 3px;
+}
+
+
+.comment-box{
+    overflow: hidden;
+}
+
+.c-user{
+    display: inline-block;
+    margin-right: 20px;
+    width: 80px;
+    float: left;
+    padding: 14px 0;
+    font-weight: bold;
+}
+
+.c-comment{
+    display: inline-block;
+    background: #eee;
+    float: left;
+    width: calc(100% - 100px);
+    padding: 5px 10px;
+    margin: 10px 0;
+    position: relative;
+}
+
+.c-comment::before{
+
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: -19px;
+    width: 0;
+    height: 0;
+    border-width: 10px;
+    border-color: transparent #eee transparent transparent;
+    border-style: solid;
+
+}
+/* Stop Dashboard Page */
+
+
+/* Start Category page */
+
+.category-heading{
+    color: #888;
+}
+
+.panel-cat{
+    padding: 0;
+}
+.cat .category{
+    padding: 10px 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cat .category:hover .cat-buttons{
+    right: 20px
+}
+
+.cat .category:hover{
+    background: #eee;
+}
+
+.cat-buttons{
+    position: absolute;
+    top: 10px;
+    right: -220px;
+    color: white;
+    transition: all 0.5s ease-in-out;
+}
+.cat-btn{
+    margin-right: 10px;
+}
+.cat-name{
+    font-weight: bold;
+    color: #555;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.cat-desc{
+    margin: 10px 5px;
+    margin-bottom: 15px;
+}
+
+.option .active{
+    color: red;
+    
+
+}
+
+.option a{
+    color: #888;
+}
+
+.option span{
+    color: #888;
+    cursor: pointer;
+}
+
+.cat-span {
+    color: white;
+    padding: 5px 8px;
+    margin-right: 5px;
+    border-radius: 5px;
+}
+.cat-hidden{
+    background: black;
+}
+.cat-comment{
+    background: #964B00;
+
+}
+.cat-ads{
+    background: red;
+}
+
+.cat-alerts{
+    margin-bottom: 15px;
+}
+
+.border{
+
+    height: 2px;
+    width: 100%;
+    background:black;
+}
+
+.cat-add{
+    margin-top: 15px;
+}
+
+/* End Category page */
+
+
+/* Start Edit category page */
+
+.visible{
+    margin-top: 40px;
+}
+/* End Edit category page */

@@ -1,0 +1,415 @@
+/******* Start General Settings  ********/
+body{
+    height: 3000px;
+    background: #eee;
+}
+.navbar{
+    padding : 5px 50px;
+}
+
+.main-navbar{
+    left: -90px;
+}
+
+h1{
+
+    font-size: 50px;
+    color: #555;
+    margin: 15px 0;
+
+}
+
+hr{
+    border-top: 1px solid #6c757d;
+}
+/******* End General Settings  ********/
+
+
+
+
+
+/******* Start Navbar  ********/
+.greeting{
+    color: white;
+}
+/******* End Navbar  ********/
+
+
+
+
+/******* Start login.php  ********/
+.sign-page h1{
+    color: #aaa;
+    margin: 30px 0;
+}
+
+.sign-page span{
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.sign-page [data-class="login"].active{
+    color: #0069d9;
+}
+
+.sign-page [data-class="signup"].active{
+
+    color:#218838 ;
+
+}
+
+
+.login{
+
+    max-width: 350px;
+    margin: auto;
+
+}
+
+.signup{
+
+    max-width: 350px;
+    margin: auto;
+    display: none;
+
+}
+
+
+.input-control{
+    margin: 20px 0;
+}
+
+/* login error  */
+
+.msgs-box{
+    max-width: 350px;
+    margin: 0 auto;
+    margin-top: 25px;
+
+}
+.errors-msg{
+
+    background: white;
+    padding: 10px 20px;
+    border-left: 4px solid red;
+    border-top: 1px solid #bdbdbd;
+    border-right: 1px solid #bdbdbd;
+    border-bottom: 1px solid #bdbdbd;
+    width: 100%;
+    color:rgb(63, 63, 63);
+}
+.success-msg{
+    background: white;
+    padding: 10px 20px;
+    border-left: 4px solid green;
+    border-top: 1px solid #bdbdbd;
+    border-right: 1px solid #bdbdbd;
+    border-bottom: 1px solid #bdbdbd;
+    width: 100%;
+    color:rgb(63, 63, 63);
+}
+/******* End login.php ********/
+
+
+
+
+
+
+/******* Start Upper nav  ********/
+.upper-nav .navbar{
+    background: #1e1e1e;
+    padding: 7px 100px;
+}
+
+.upper-nav .navbar span{
+    color: white;
+}
+
+.upper-nav .navbar a{
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+
+}
+
+/* photo */
+.user-uppernav-img{
+
+    max-width: 50px;
+    max-height: 50px;
+    margin: auto;
+}
+
+
+/* name  */
+.my-name{
+    margin-left: 5px;
+}
+/******* End Upper nav  ********/
+
+
+
+
+/******* Start Categories.php  ********/
+/* item box  */
+.item-box{
+    position: relative;
+    background: white;
+    border: 2px solid #b4b4b4;
+}
+
+.items-header{
+    color: white;
+    font-weight: bold;
+}
+
+
+/* Price */
+.price-tag{
+    background: #b4b4b4;
+    padding: 2px 10px;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    color: white;
+}
+
+
+/* Caption */
+.item-box .caption{
+    padding: 5px 10px;
+}
+
+/* Caption h3 */
+.caption h3{
+    font-size: 1.4rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+/* Caption p  */
+.caption p{
+    margin-bottom: 0;
+}
+
+.caption .date{
+    font-size: 13px;
+    color: grey;
+    text-align: left;
+    margin-top: 3px;
+}
+/******* End Categories.php   ********/
+
+
+
+
+/******* Start profile.php  ********/
+.info{
+    margin-top: 20px;
+}
+
+.comments,
+.ads{
+    margin: 40px 0;
+}
+
+
+.edit-card{
+    margin: 10px auto;
+}
+
+/* header */
+.edit-card .comment-head,
+.edit-card .ads-head,
+.edit-card .info-head{
+    color: white;
+    font-size: 19px;
+    font-weight: bolder;
+}
+.info .edit-card{
+    border: 1px solid #007bff;
+
+}
+
+.comments .edit-card{
+
+    border: 1px solid #ffc107;
+}
+
+.ads .edit-card{
+    border: 1px solid #28a745;
+}
+
+.card-header{
+    padding: 0.3rem 1.25rem;
+}
+
+/* info  */
+
+
+.info-ul li{
+    width: 100%;    
+}
+
+.info-ul li:nth-child(odd){
+    background-color: #ccc;
+}
+
+
+
+
+.info-ul li span{
+    display: inline-block;
+    width: 20%;
+    color: black;
+    font-weight: bold;
+}
+
+.info-ul .info-icon{
+    margin-right: 10px;
+}
+
+/* not approved ads  */
+.not-approved{
+    width: 100%;
+    background:rgba(255, 0, 0, 0.527);
+    text-align: center;
+}
+/******* End profile.php  ********/
+
+
+/******* Start additem.php  ********/
+.add-item-card{
+
+    padding: 50px;
+    margin-bottom: 50px;
+}
+
+.add-item .edit-card{
+    margin: 10px auto;
+    border: 2px solid #28a745;
+    border-radius: 6px;
+}
+
+.btn-add-item{
+    width: 100%;
+    margin-top: 30px;
+    padding: 10px;
+}
+/******* End additem.php  ********/
+
+
+/******* Start items.php  ********/
+.item-card .desc{
+
+    margin-bottom: 20px;
+}
+
+/* item box  */
+.show-item .item-box{
+    position: relative;
+    background: white;
+    border: 2px solid #6c757d;
+}
+
+/* header */
+.item-head{
+
+    color: white;
+    font-size: 19px;
+    font-weight: bold;
+    text-transform: capitalize;
+
+}
+
+.item-card .edit-icon{
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+.item-card li span{
+    display: inline-block;
+    width: 20%;
+    color: black;
+    font-weight: bold;
+}
+
+.item-card li:nth-child(odd){
+    background-color: #eee;
+}
+
+/* tags  */
+
+.edit-tag{
+    color: #666;
+    background: #e2e2e2;
+    padding: 5px 10px;
+    margin: 0px 4px;
+    border-radius: 4px;
+
+}
+
+.edit-tag:hover{
+    text-decoration: none;
+    color: black;
+}
+/* comment */
+.comment-text{
+
+    display: block;
+    margin-bottom: 10px;
+    
+}
+
+.comment-text:focus{
+    background-color: #fff;
+    border: 0;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.25);
+}
+
+.add-comment{
+    margin: 10px 0;
+}
+/* Show Comments  */
+
+.comment-box{
+    margin-top: 20px;
+}
+
+.col-md-3{
+    text-align: center;
+
+}
+
+.user-comment-img{
+    max-width: 100px;
+}
+
+.comment-section{
+    position: relative;
+    padding: 20px;
+    background: #ccc;
+
+}
+
+.comment-section::before{
+    content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+    border: 25px;
+    border-style: solid;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-right-color: #ccc;
+    top: 5px;
+    left: -46px;
+}
+
+
+
+/******* End items.php  ********/
+
