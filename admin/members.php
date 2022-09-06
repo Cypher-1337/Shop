@@ -133,9 +133,11 @@
             // check if the id exists in the db  &  show the form
             if($count > 0){ ?>
                 <h1 class="text-center">Edit Profile</h1>
+                <div class='row'>
+                    <div class="col-md-12">
                         <div class="container">
                             <form action="?do=Update" method="POST" enctype="multipart/form-data">
-                               
+                            
                                 <input type="hidden" name="userid" value="<?php echo $userid ?>" >
                                 <!-- username -->
                                 <div class="form-group row">
@@ -171,6 +173,15 @@
                                     </div>
                                 </div>
 
+                                <!-- Group ID  -->
+                                <div class="form-group row">
+                                    <label class="col-sm-2 control-label edit-label">Privilage</label>
+                                    <div class="col-sm-4">
+                                            <input required type="text" name="groupid" class="form-control" placeholder="admin || user"
+                                            value="<?php if($row['GroupID'] == 0){echo 'User';}else{echo 'Admin';}  ?>" >
+                                    </div>
+                                </div>
+
                                 <!-- User Avatar  -->
                                 <div class="form-group row">
                                     <label class="col-sm-2 control-label edit-label">Avatar</label>
@@ -190,6 +201,11 @@
                 
                             </form>
                         </div>
+                        
+                    </div>
+                </div>
+                
+
             <?php }
 
             // if the id wasn't valid 
@@ -218,6 +234,7 @@
                 $username   = trim($_POST['username']);
                 $email      = trim($_POST['email']);
                 $fullname   = trim($_POST['fullname']);
+                $groupid    = strtolower(trim($_POST['groupid']));
 
                 // old avatar if user didn't upload an image
                 $old_avatar = $_POST['old_avatar'];
@@ -243,11 +260,11 @@
                 // start validate the form
                 // if $avatarName is not empty check img extension and size
                 if(!empty($avatarName)){
-                    $formErrors = editValidateForm($username, $email, $fullname, $img_ext, $allowed_ext, $avatarSize);
+                    $formErrors = editValidateForm($username, $email, $fullname, $groupid, $img_ext, $allowed_ext, $avatarSize);
                 }
                 // if empty ignore file upload restrictions 
                 else{
-                    $formErrors = editValidateForm($username, $email, $fullname);
+                    $formErrors = editValidateForm($username, $email, $fullname, $groupid);
                     
                 }
 
@@ -278,9 +295,16 @@
                         echo "<div class='alert alert-danger'>User already exist</div>";
                     }else{
 
+                        // if it was admin the value will be 1 if he is user value will be 0
+                        if($groupid == 'admin'){
+                            $groupid = 1;
+                        }else{
+                            $groupid = 0;
+                        }
+
                         // update db
-                        $stmt = $con->prepare("UPDATE users SET Username = ?, Email = ?, Fullname = ?, Avatar = ?, Password = ? WHERE UserID= ?");
-                        $stmt->execute(array($username, $email, $fullname, $img_name, $pass, $id));
+                        $stmt = $con->prepare("UPDATE users SET Username = ?, Email = ?, Fullname = ?, GroupID = ?, Avatar = ?, Password = ? WHERE UserID= ?");
+                        $stmt->execute(array($username, $email, $fullname, $groupid, $img_name, $pass, $id));
                         $count = $stmt->rowCount();
         
                         $msg = "<div class='alert alert-success'>" . $count . " Record updated </div>";
@@ -344,8 +368,9 @@
                         </div>
                     </div>
 
+                    <!-- Group ID  -->
                     <div class="form-group row">
-                        <label class="col-sm-2 control-label edit-label">GroupID</label>
+                        <label class="col-sm-2 control-label edit-label">Privilage</label>
                         <div class="col-sm-4">
                                 <input required type="text" name="groupid" class="form-control"placeholder="admin || user" >
                         </div>
@@ -383,11 +408,11 @@
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 
-                $username = trim($_POST['username']);
-                $email = trim($_POST['email']);
-                $password = trim($_POST['password']);
-                $fullname = trim($_POST['fullname']);
-                $groupid = trim($_POST['groupid']);
+                $username   = trim($_POST['username']);
+                $email      = trim($_POST['email']);
+                $password   = trim($_POST['password']);
+                $fullname   = trim($_POST['fullname']);
+                $groupid    = strtolower(trim($_POST['groupid']));
 
                 $hash_password = sha1($password);
 
@@ -431,8 +456,8 @@
                     }
 
                     $stmt = $con->prepare("INSERT INTO 
-                                           users(Username, Password, Email, Fullname, GroupID, Date, Avatar)
-                                           VALUES(:vuser, :vpass, :vmail, :vname, :vgroup, now(), :avatar) 
+                                           users(Username, Password, Email, Fullname, RegStatus, GroupID, Date, Avatar)
+                                           VALUES(:vuser, :vpass, :vmail, :vname, :vreg, :vgroup, now(), :avatar) 
                                             ");
 
                     $stmt->execute(array(
@@ -441,6 +466,7 @@
                         'vpass' => $hash_password,
                         'vmail' => $email,
                         'vname' => $fullname,
+                        'vreg'  => 1,
                         'vgroup' => $groupid,
                         'avatar' => $img_name
 

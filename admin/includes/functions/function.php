@@ -138,7 +138,7 @@ function insertValidateForm($username, $email, $password, $fullname, $groupid, $
 
 
 // validate edit form
-function editValidateForm($username, $email, $fullname, $img_ext = NULL, $allowed_ext = NULL, $img_size = NULL){
+function editValidateForm($username, $email, $fullname, $groupid, $img_ext = NULL, $allowed_ext = NULL, $img_size = NULL){
     
     $check = checkItem("Username", "users", $username);
     
@@ -164,6 +164,16 @@ function editValidateForm($username, $email, $fullname, $img_ext = NULL, $allowe
 
     if(empty($fullname)){
         $formErrors[] = "<h5> Fullname can't be empty </h5>";
+    }
+
+    if(empty($groupid)){
+        $formErrors[] = "Group can't be empty";
+
+    }
+
+    if(($groupid != 'admin') && ($groupid != 'user')){
+        $formErrors[] = "Group Accepts only 2 values admin || user";
+
     }
 
     if(!empty($img_ext) && !empty($allowed_ext)){
