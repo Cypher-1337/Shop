@@ -56,7 +56,10 @@
 
                     echo "</ul>";
 
+
+
                 ?>
+                <button class='btn btn-primary edit-my-profile'>Edit Profile</button>
                 </div>
             </div>
     </div>

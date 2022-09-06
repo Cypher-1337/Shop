@@ -256,7 +256,10 @@ hr{
     background-color: #ccc;
 }
 
-
+/* edit button  */
+.edit-my-profile{
+    margin-top: 15px;
+}
 
 
 .info-ul li span{

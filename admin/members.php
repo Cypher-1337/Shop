@@ -262,7 +262,7 @@
                 if(!empty($avatarName)){
                     $formErrors = editValidateForm($username, $email, $fullname, $groupid, $img_ext, $allowed_ext, $avatarSize);
                 }
-                // if empty ignore file upload restrictions 
+                // if it is empty ignore file upload restrictions 
                 else{
                     $formErrors = editValidateForm($username, $email, $fullname, $groupid);
                     
