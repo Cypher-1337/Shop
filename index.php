@@ -10,7 +10,7 @@
 <div class='container'>
 
 <?php
-$all_items = getAllFrom('*', 'items', 'WHERE Approve = 1', 'Item_ID');
+$all_items = getAllFrom('*', 'items', '', 'Item_ID');
 
     echo "<h1 class='text-center'>All Items</h1>";
         echo "<div class='card bg-dark'>";
@@ -25,7 +25,9 @@ $all_items = getAllFrom('*', 'items', 'WHERE Approve = 1', 'Item_ID');
                         echo "<div class='col-sm-6 col-md-3'>";
                             echo "<div class='thumbnail item-box'>";
                                 echo "<span class='price-tag'>" . $item['Price'] . " $</span>";
-                                echo "<img class='img-thumbnail item-img ' src='includes/imgs/avatar4.jpg' alt='item' >";
+                                echo "<img class='img-thumbnail item-img ' src='admin/uploads/items/";
+                                echo $item['Image'];
+                                echo "' alt='item' >";
                                 
                                 echo "<div class='caption'>";
                                     echo "<h3><a href='items.php?item_id=" . $item['Item_ID'] . "'>"  . $item['Name'] . "</a></h3>";

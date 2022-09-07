@@ -134,7 +134,7 @@ if(isset($_SESSION['user'])){
         
         <h1 class="text-center">Add New Item</h1>
             <div class="container">
-                <form action="?page=insert" class="" method="POST">
+                <form action="?page=insert" class="" method="POST" enctype="multipart/form-data">
                    
                     <!-- Name -->
                     <div class="form-group row">
@@ -230,6 +230,14 @@ if(isset($_SESSION['user'])){
                         </div>
                     </div>
 
+                    <!-- Item image  -->
+                    <div class="form-group row">
+                        <label class="col-sm-2 control-label edit-label">Image</label>
+                        <div class="col-sm-4">
+                                <input type="file" name="image" class="form-control">
+                        </div>
+                    </div>
+
                     <!-- Tags -->
                     <div class="form-group row">
                         <label class="col-sm-2 control-label edit-label">Tags</label>
@@ -261,38 +269,83 @@ elseif($page == 'insert'){ // Insert page
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-        $name = $_POST['name'];
-        $desc = $_POST['description'];
-        $price = $_POST['price'];
-        $country = $_POST['country'];
+        $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+        $desc = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
+        $price = filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_INT);
+        $country = filter_var($_POST['country'], FILTER_SANITIZE_STRING);
         $status = $_POST['status'];
         $member = $_POST['member'];
         $category = $_POST['category'];
         $tags = $_POST['tags'];
 
 
+        // uploading image 
+        if(!empty($_FILES['image']['name'])){
+
+            $imageName = $_FILES['image']['name'];
+            $imageSize = $_FILES['image']['size'];
+            $imageTemp = $_FILES['image']['tmp_name'];
+            $imageError = $_FILES['image']['error'];
+
+            $allowed_ext = array('png', 'jpg', 'jpeg');
+
+            $img_ext = strtolower(end(explode('.', $imageName)));
             
-            $stmt = $con->prepare("INSERT INTO
-                                 items(Name, Description, Price, Country, Status, Member_ID, Cat_ID, Tags, Add_Date)
-                                 VALUES(:name, :description, :price, :country, :status, :member, :category, :tags, now())");
+            $img_name = rand(1, 9999999) . '_' . $imageName ;
 
-        $stmt->execute(array(
+            $formErrors = itemValidate($name, $desc, $price, $country, $status, $member, $category, $img_ext, $allowed_ext, $avatarSize);
 
-            'name'  =>  $name,
-            'description'  =>  $desc,
-            'price'  =>  $price,
-            'country'  =>  $country,
-            'status'  =>  $status,
-            'member' => $member,
-            'category' => $category,
-            'tags' => $tags
+        }
 
-        ));
+        else{
+            $formErrors = itemValidate($name, $desc, $price, $country, $status, $member, $category);
 
-        $msg = "<div class='alert alert-dark'>" . $stmt->rowCount() . " record inserted </div>";
-        redirectHome($msg, "items.php", 1);
+        }
         
-    
+ 
+        
+    if(empty($formErrors)){
+
+
+        if(!empty($_FILES['image']['name'])){
+            $destination = 'uploads/items/' . $img_name;
+                
+            if (!move_uploaded_file($imageTemp, $destination)) {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+        else{
+            $img_name = 'default_item.png';
+        }
+
+            // Add to db 
+            $stmt = $con->prepare("INSERT INTO
+                                 items(Name, Description, Price, Country, Status, Approve, Member_ID, Cat_ID, Tags, Image, Add_Date)
+                                 VALUES(:name, :description, :price, :country, :status, 1 , :member, :category, :tags, :image, now())");
+            
+
+            $stmt->execute(array(
+
+                'name'  =>  $name,
+                'description'  =>  $desc,
+                'price'  =>  $price,
+                'country'  =>  $country,
+                'status'  =>  $status,
+                'member' => $member,
+                'category' => $category,
+                'tags' => $tags,
+                'image' => $img_name
+
+            ));
+
+            $msg = "<div class='alert alert-dark'>" . $stmt->rowCount() . " record inserted </div>";
+            redirectHome($msg, "items.php", 1);
+            
+        }else{
+            foreach($formErrors as $error){
+                echo "<div class='alert alert-danger'>$error</div>";
+            }
+        }
 
         echo "</div>";
     }
@@ -324,7 +377,7 @@ elseif($page == 'edit'){ // Edit Page
 
         <h1 class="text-center">Edit Item</h1>
         <div class="container">
-            <form action="?page=update" method="POST">
+            <form action="?page=update" method="POST" enctype="multipart/form-data">
                 
                 <!-- Item_ID -->
                 <input type="hidden" name="itemid" value="<?php  echo $itemId ?>">
@@ -431,6 +484,16 @@ elseif($page == 'edit'){ // Edit Page
                     </div>
                 </div>
 
+                <!-- Item image  -->
+                <div class="form-group row">
+                    <label class="col-sm-2 control-label edit-label">Image</label>
+                    <div class="col-sm-4">
+                            <input type="file" name="image" class="form-control">
+                            <input type="hidden" name="old_image" class="form-control" value="<?php echo $row['Image'] ?>" >
+
+                    </div>
+                </div>
+
                 <!-- Tags  -->
                  <div class="form-group row">
                     <label class="col-sm-2 control-label edit-label">Tags</label>
@@ -452,7 +515,7 @@ elseif($page == 'edit'){ // Edit Page
 <?php
 
 
-$stmt = $con->prepare(" SELECT 
+            $stmt = $con->prepare(" SELECT 
                                      comments.*,users.Username AS User
                                     FROM 
                                      comments
@@ -539,17 +602,65 @@ elseif($page == 'update'){ //Update Page
         $tags = $_POST['tags'];
 
 
-        $stmt = $con->prepare("UPDATE 
-                                items
-                               SET 
-                                Name = ?, Description = ?, Price = ?, Country = ?, Status = ?, Member_ID = ?, Cat_ID = ?, Tags = ? 
-                               WHERE Item_ID= ?");
+        $old_image = $_POST['old_image'];
 
-        $stmt->execute(array($name, $desc, $price, $country, $status, $member, $category, $tags, $itemId));
+        // uploading image 
+        if(!empty($_FILES['image']['name'])){
 
-        $msg = "<div class='alert alert-success'>" . $stmt->rowCount() . " Updated </div>";
-        redirectHome($msg, 'items.php', 1);
+            $imageName = $_FILES['image']['name'];
+            $imageSize = $_FILES['image']['size'];
+            $imageTemp = $_FILES['image']['tmp_name'];
+            $imageError = $_FILES['image']['error'];
 
+            $allowed_ext = array('png', 'jpg', 'jpeg');
+
+            $img_ext = strtolower(end(explode('.', $imageName)));
+            
+            $img_name = rand(1, 9999999) . '_' . $imageName ;
+
+            $formErrors = itemValidate($name, $desc, $price, $country, $status, $member, $category, $img_ext, $allowed_ext, $imageSize);
+
+        }
+        else{
+            $formErrors = itemValidate($name, $desc, $price, $country, $status, $member, $category);
+        }
+
+
+        if(empty($formErrors)){
+            
+
+            if(!empty($_FILES['image']['name'])){
+                $destination = 'uploads/items/' . $img_name;
+                    
+                if (!move_uploaded_file($imageTemp, $destination)) {
+                    echo "Sorry, there was an error uploading your file.";
+                }
+            }
+            else{
+                $img_name = $old_image;
+            }
+
+
+            $stmt = $con->prepare("UPDATE 
+                                    items
+                                SET 
+                                    Name = ?, Description = ?, Price = ?, Country = ?, Status = ?, Image = ?, Member_ID = ?, Cat_ID = ?, Tags = ? 
+                                WHERE Item_ID= ?");
+
+            $stmt->execute(array($name, $desc, $price, $country, $status, $img_name, $member, $category, $tags, $itemId));
+
+            $msg = "<div class='alert alert-success'>" . $stmt->rowCount() . " Updated </div>";
+            redirectHome($msg, 'items.php', 1);
+
+
+        }
+        else{
+            foreach($formErrors as $error){
+                echo "<div class='alert alert-danger'>$error</div>";
+            }
+        }
+
+       
   
     }else{
         

@@ -56,10 +56,9 @@
 
                     echo "</ul>";
 
-
-
                 ?>
-                <button class='btn btn-primary edit-my-profile'>Edit Profile</button>
+
+                <button class='btn btn-primary edit-my-profile' onclick='document.location.href = "profile/edit-profile.php"'>Edit Profile</button>
                 </div>
             </div>
     </div>
@@ -84,8 +83,11 @@
                                 echo "<div class='col-sm-6 col-md-4'>";
                                     echo "<div class='thumbnail item-box'>";
                                     echo "<span class='price-tag'>" . $ad['Price'] . " $</span>";
-                                        echo "<img class='img-thumbnail item-img ' src='includes/imgs/avatar4.jpg' alt='item' >";
                                         
+                                        echo "<img class='img-thumbnail item-img ' src='admin/uploads/items/";
+                                        echo $ad['Image'];
+                                        echo "' alt='item' >";
+
                                         echo "<div class='caption'>";
                                             
                                         echo "<h3><a href='items.php?item_id=" . $ad['Item_ID'] . "'>"  . $ad['Name'] . "</a></h3>";

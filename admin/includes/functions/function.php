@@ -191,6 +191,48 @@ function editValidateForm($username, $email, $fullname, $groupid, $img_ext = NUL
 }
 
 
+// Validate Items
+function itemValidate($name, $desc, $price, $country, $status, $member, $category, $img_ext = NULL, $allowed_ext = NULL, $img_size = NULL){
+
+    $formErrors = [];
+
+
+    if(empty($name)){
+        $formErrors[] = "<h5> Item name can't be empty </h5>";
+    }
+    if(empty($desc)){
+        $formErrors[] = "<h5> Description can't be empty </h5>";
+    }
+    if(empty($price)){
+        $formErrors[] = "<h5> Price can't be empty </h5>";
+    }
+    if(empty($country)){
+        $formErrors[] = "<h5> Country can't be empty </h5>";
+    }
+    if(empty($status)){
+        $formErrors[] = "<h5> Status can't be empty </h5>";
+    } 
+    if(empty($member)){
+        $formErrors[] = "<h5> Member can't be empty </h5>";
+    }
+    if(empty($category)){
+        $formErrors[] = "<h5> Category can't be empty </h5>";
+    }
+
+    // image validate
+    if(!empty($img_ext) && !empty($allowed_ext)){
+        if(!in_array($img_ext, $allowed_ext)){
+            $formErrors[] = "Only valid image types allowed<b> png, jpeg, jpg </b>";
+        }
+    }
+    
+    if($img_size > 8 * 1024 * 1024){
+        $formErrors[] = "Image must be Less than <b>8MB</b>";
+    }
+
+    return $formErrors;
+}
+
 
 
 /************************************************************************************************ */

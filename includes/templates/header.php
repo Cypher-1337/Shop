@@ -48,9 +48,9 @@
 
                             <!-- dropdown items  -->
                             <ul class='dropdown-menu bg-secondary'>
-                                <li><a href="profile.php" class='dropdown-item bg-secondary'>My Profile</a></li>
-                                <li><a href="additem.php" class='dropdown-item bg-secondary'>New Item</a></li>
-                                <li><a href="logout.php" class='dropdown-item bg-secondary'>Logout</a></li>
+                                <li><a href="/shop/profile.php" class='dropdown-item bg-secondary'>My Profile</a></li>
+                                <li><a href="/shop/additem.php" class='dropdown-item bg-secondary'>New Item</a></li>
+                                <li><a href="/shop/logout.php" class='dropdown-item bg-secondary'>Logout</a></li>
                             </ul>
 
                         </div>
@@ -59,7 +59,7 @@
                 ?>
 
                 <div class="sign ml-auto">
-                        <a class='' href="login.php">Login</a>
+                        <a class='' href="/shop/login.php">Login</a>
                         <span> | </span>
                         <a href="#">sign up</a>
                 <?php } ?>

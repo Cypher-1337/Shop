@@ -57,20 +57,43 @@
 
             $hash_pass = sha1($password);
 
-            $form_errors = insertValidateForm($username, $email, $fullname, $password, $password2);
+
+            // User Avatar
+            $avatarName = $_FILES['avatar']['name'];
+            $avatarSize = $_FILES['avatar']['size'];
+            $avatarTemp = $_FILES['avatar']['tmp_name'];
+            $avatarError = $_FILES['avatar']['error'];
+
+            $allowed_ext = array('png', 'jpg', 'jpeg');
+
+            $tmp_img = explode('.', $avatarName);
+            $img_ext = end($tmp_img);
+
+            $img_name = rand(1, 9999999) . '_' . $avatarName ;
+    
+    
+            $form_errors = insertValidateForm($username, $email, $fullname, $password, $password2, $img_ext, $allowed_ext, $avatarSize);
          
-            // Display Errors if any 
-            if(!empty($form_errors)){
+            
+            if(!empty($form_errors)){               // Display Errors if any 
                 foreach($form_errors as $error){
                     $fail_msgs[] = $error;
                 }
             }
+            else{                                   // insert to the database
 
-            // insert to the database
-            else{
-                $stmt = $con->prepare("INSERT INTO users(Username, Email, Fullname, Password, Date)
-                                       VALUES(?,?,?,?,now())");
-                $stmt->execute(array($username, $email, $fullname, $hash_pass));
+
+                // uploading img to upload/avatars folder
+                $destination = 'admin/uploads/avatars/' . $img_name;
+                    
+                if (!move_uploaded_file($avatarTemp, $destination)) {
+                    echo "Sorry, there was an error uploading your file.";
+                }
+
+
+                $stmt = $con->prepare("INSERT INTO users(Username, Email, Fullname, Avatar, Password, Date)
+                                       VALUES(?,?,?,?,?,now())");
+                $stmt->execute(array($username, $email, $fullname, $img_name, $hash_pass));
                 $count = $stmt->rowCount();
 
                 $success_msgs[] = "You Signed Up Successfully";
@@ -103,13 +126,14 @@
     </form>
 
     <!-- Signup Form  -->
-    <form class='signup' action="#" method="POST">
+    <form class='signup' action="login.php" method="POST" enctype="multipart/form-data">
         
         <input pattern=".{4,}" title="Username can't be less than 4 chars" class='form-control input-control' type="text" name="username" placeholder="Username" required >
         <input class='form-control input-control' type="email" name="email" placeholder="Email" required >
         <input class='form-control input-control' type="text" name="fullname" placeholder="Full Name" required >
         <input minlength='6' class='form-control input-control' type="password"  name="password" placeholder="Password" required >
         <input minlength='6' class='form-control input-control' type="password"  name="password2" placeholder="Confirm Password" required >
+        <input type="file" name="avatar" class="form-control input-control" required>
         <input type="submit" class='btn btn-success btn-block login-submit' name='signup' value='Sign up'>
         
 

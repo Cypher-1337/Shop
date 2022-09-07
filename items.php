@@ -44,7 +44,7 @@
 
             <div class='thumbnail item-box '>
                 <span class='price-tag'> <?php echo $item['Price'] ?>   </span>
-                <img class='img-thumbnail item-img ' src='includes/imgs/assassin.jpg' alt='item' >
+                <img class='img-thumbnail item-img ' src='admin/uploads/items/<?php echo $item["Image"] ?>' alt='item' >
                 
                 <div class='caption'>
                     <h3> <?php echo $item['Name'] ?>  </h3>
@@ -131,7 +131,8 @@
 <?php
     $stmt = $con->prepare(" SELECT 
                                 comments.*,
-                                users.Username AS User
+                                users.Username AS User,
+                                users.Avatar
                             FROM 
                                 comments
                             INNER JOIN
@@ -140,8 +141,7 @@
                                 users.UserID = comments.User_ID
                             WHERE 
                                 Item_ID = ?
-                            AND
-                                Status = 1 ");
+                            ");
     $stmt->execute(array($itemId));
     $rows = $stmt->fetchAll();
 
@@ -158,7 +158,7 @@
                         <div class="comment-box">
                             <div class="row">
                                 <div class='col-md-3'> 
-                                    <img src='includes/imgs/avatar4.jpg' class='img-responsive img-thumbnail rounded-circle user-comment-img'>
+                                    <img src='admin/uploads/avatars/<?php echo $row['Avatar'] ?>' class='img-responsive img-thumbnail rounded-circle user-comment-img'>
                                     <div> <?php echo $row['User'] ?> </div> 
                                 </div>
                                 <div class='col-md-9 my-auto'> 

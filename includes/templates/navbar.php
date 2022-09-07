@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.php">My Shop</a>
+    <a class="navbar-brand" href="/shop/index.php">My Shop</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -14,7 +14,7 @@
                 
         
                 echo "<li class='nav-item active'>";
-                    echo "<a class='nav-link dropdown-toggle' href='categories.php?cat_id=" . $cat['ID'] . "&cat_name=" . str_replace('%20', ' ', $cat['Name']) . "'>";
+                    echo "<a class='nav-link dropdown-toggle' href='/shop/categories.php?cat_id=" . $cat['ID'] . "&cat_name=" . str_replace('%20', ' ', $cat['Name']) . "'>";
                         echo  $cat['Name'];
                     echo  "</a>";
                     echo '<div class="dropdown-menu main-navbar bg-dark" aria-labelledby="navbarDropdown">';

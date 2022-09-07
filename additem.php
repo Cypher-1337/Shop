@@ -22,17 +22,55 @@
         $country    = filter_var($_POST['country'], FILTER_SANITIZE_STRING);
         $status     = filter_var($_POST['status'], FILTER_SANITIZE_NUMBER_INT);
         $category   = filter_var($_POST['category'], FILTER_SANITIZE_NUMBER_INT);
-        $tags    = filter_var($_POST['tags'], FILTER_SANITIZE_STRING);
+        $tags       = filter_var($_POST['tags'], FILTER_SANITIZE_STRING);
         
-       
-       
-        $form_errors = insertItemValidate($name, $price, $country, $status, $category);
 
-        if(empty($form_errors)){
+
+        // uploading image 
+        if(!empty($_FILES['image']['name'])){
+
+            $imageName = $_FILES['image']['name'];
+            $imageSize = $_FILES['image']['size'];
+            $imageTemp = $_FILES['image']['tmp_name'];
+            $imageError = $_FILES['image']['error'];
+
+            $allowed_ext = array('png', 'jpg', 'jpeg');
+
+            $tmp_img = explode('.', $imageName);
+            $img_ext = end($tmp_img);
+            
+            $img_name = rand(1, 9999999) . '_' . $imageName ;
+
+            $formErrors = itemValidate($name, $desc, $price, $country, $status, $category, $img_ext, $allowed_ext, $imageSize);
+
+        }
+
+        else{
+            $formErrors = itemValidate($name, $desc, $price, $country, $status, $category);
+
+        }
+       
+       
+
+        if(empty($formErrors)){
+            
+            
+            if(!empty($_FILES['image']['name'])){
+                $destination = 'admin/uploads/items/' . $img_name;
+                    
+                if (!move_uploaded_file($imageTemp, $destination)) {
+                    echo "Sorry, there was an error uploading your file.";
+                }
+            }
+            else{
+                $img_name = 'default_item.png';
+                
+            }
+
 
             $stmt = $con->prepare("INSERT INTO
-            items(Name, Description, Price, Country, Status, Member_ID, Cat_ID, Tags, Add_Date)
-            VALUES(:name, :description, :price, :country, :status, :member, :category, :tags, now())");
+            items(Name, Description, Price, Country, Status, Image, Member_ID, Cat_ID, Tags, Add_Date)
+            VALUES(:name, :description, :price, :country, :status, :image, :member, :category, :tags, now())");
 
             $stmt->execute(array(
 
@@ -41,6 +79,7 @@
                 'price'  =>  $price,
                 'country'  =>  $country,
                 'status'  =>  $status,
+                'image'   =>  $img_name,
                 'member' => $_SESSION['uid'],
                 'category' => $category,
                 'tags' => $tags
@@ -48,6 +87,14 @@
             ));
 
             $success_msgs[] = 'Item Added Successfully.';
+            header("Location: /shop");
+        }
+        else{
+
+            foreach($formErrors as $error){
+                echo "<div class='alert alert-danger'>$error</div>";
+            }
+
         }
 
 
@@ -67,13 +114,13 @@
                 <div class="row">
 
                     <div class="col-md-8">
-                        <form action="#" class="" method="POST">
+                        <form action="#" class="" method="POST" enctype="multipart/form-data">
                         
                             <!-- Name -->
                             <div class="form-group row">
                                 <label class="col-sm-3 control-label edit-label">Name</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="name" class="form-control live-name" required>
+                                    <input required type="text" name="name" class="form-control live-name" >
                                 </div>
                             </div>
             
@@ -81,7 +128,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 control-label edit-label">Description</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="description" class="form-control live-desc" required>
+                                    <input required type="text" name="description" class="form-control live-desc" >
                                 </div>
                             </div>
             
@@ -90,7 +137,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 control-label edit-label">Price</label>
                                 <div class="col-md-8">
-                                    <input type="number" name="price" class="form-control live-price" required>
+                                    <input required type="number" name="price" class="form-control live-price" >
                                 </div>
                             </div>
 
@@ -100,7 +147,7 @@
                                 <label class="col-sm-3 control-label edit-label">Country</label>
                                 <div class="col-md-8">
 
-                                    <input type="text" name="country" class="form-control" required>
+                                    <input required type="text" name="country" class="form-control" >
                                     
                                 </div>
                             </div>
@@ -118,6 +165,7 @@
                                 </div>
                             </div>                          
 
+                            <!-- Categories  -->
                             <div class="form-group row">
                                 <label class="col-sm-3 control-label edit-label">Category</label>
                                 <div class="col-md-8">
@@ -137,6 +185,16 @@
                                 </div>
                             </div>
 
+
+                            <!-- Item image  -->
+                            <div class="form-group row">
+                                <label class="col-sm-3 control-label edit-label">Image</label>
+                                <div class="col-md-8">
+                                        <input type="file" name="image" class="form-control">
+                                </div>
+                            </div>
+
+
                             <!-- Tags -->
                             <div class="form-group row">
                                 <label class="col-sm-3 control-label edit-label">Tags</label>
@@ -145,6 +203,7 @@
                                 </div>
                             </div>
                                     
+                            <!-- Submit Button  -->
                             <div class="form-group">
                                 <div class="col-sm-offset-1 col-sm-11">
                                     <input type="submit" value="Add Item" class="btn btn-add-item btn-outline-success" >
