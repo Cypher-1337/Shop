@@ -218,6 +218,10 @@ hr{
     margin: 40px 0;
 }
 
+.edit-item-profile{
+    padding: 2px 20px;
+    margin-top: 10px;
+}
 
 .edit-card{
     margin: 10px auto;
@@ -364,6 +368,16 @@ hr{
     margin-top: 30px;
     padding: 10px;
 }
+
+.price-input{
+    margin-bottom: 7%;
+}
+
+.edit-label {
+    margin-top: .5%;
+    padding-left: 3%;
+}
+
 /******* End additem.php  ********/
 
 

@@ -58,10 +58,9 @@
                     <?php } else{
                 ?>
 
-                <div class="sign ml-auto">
+                <div class="sign mr-auto">
                         <a class='' href="/shop/login.php">Login</a>
-                        <span> | </span>
-                        <a href="#">sign up</a>
+                       
                 <?php } ?>
             </div>
         </div>

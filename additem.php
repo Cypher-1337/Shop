@@ -134,7 +134,7 @@
             
                             
                             <!-- Price -->
-                            <div class="form-group row">
+                            <div class="form-group row price-input">
                                 <label class="col-sm-3 control-label edit-label">Price</label>
                                 <div class="col-md-8">
                                     <input required type="number" name="price" class="form-control live-price" >

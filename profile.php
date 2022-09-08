@@ -89,13 +89,20 @@
                                         echo "' alt='item' >";
 
                                         echo "<div class='caption'>";
-                                            
-                                        echo "<h3><a href='items.php?item_id=" . $ad['Item_ID'] . "'>"  . $ad['Name'] . "</a></h3>";
-                                        echo "<p>" . $ad['Description'] . "</p>";
-                                            if($ad['Approve'] == 0){
-                                                echo "<p class='not-approved'> this ad not approved yet </p>";
-                                            }
+                                            echo "<h3><a href='items.php?item_id=" . $ad['Item_ID'] . "'>"  . $ad['Name'] . "</a></h3>";
+                                            echo "<p>" . $ad['Description'] . "</p>";
+                                                if($ad['Approve'] == 0){
+                                                    echo "<p class='not-approved'> this ad not approved yet </p>";
+                                                }
+                                            echo "<a class='btn btn-primary edit-item-profile' href='items/edit-item.php";
+                                            echo "?item_id=" . $ad['Item_ID'];
+                                            echo "'>Edit</a>";
+
+                                            echo "<a class='btn btn-danger edit-item-profile' href='items/edit-item.php";
+                                            echo "?action=delete&item_id=" . $ad['Item_ID'];
+                                            echo "'>Delete</a>";
                                         echo "</div>";
+
                     
                                     echo "</div>";
                                 echo "</div>";
