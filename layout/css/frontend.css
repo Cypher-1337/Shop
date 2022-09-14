@@ -140,6 +140,12 @@ hr{
     margin: auto;
 }
 
+.user-items-img{
+
+    max-width: 40px;
+    max-height: 40px;
+    margin: auto;
+}
 
 /* name  */
 .my-name{
@@ -385,6 +391,14 @@ hr{
 .item-card .desc{
 
     margin-bottom: 20px;
+}
+
+.item-a:hover{
+    text-decoration: none;
+}
+
+.money-icon{
+    color: green !important;
 }
 
 /* item box  */

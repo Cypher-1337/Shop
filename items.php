@@ -8,8 +8,8 @@
 
     $itemId = isset($_GET['item_id']) && is_numeric($_GET['item_id'])? intval($_GET['item_id']) : 0;
     $check = checkItem('Item_ID', 'items', $itemId);
-    
-    
+
+ 
     
     if ($check > 0 ){
         $stmt = $con->prepare("SELECT items.*, categories.Name AS Cat_Name, users.Username
@@ -29,6 +29,13 @@
                                 ");
         $stmt->execute(array($itemId));
         $item = $stmt->fetch();
+
+
+        $username = $item['Username'];
+        $stmt2 = $con->prepare("SELECT * FROM users WHERE Username = ?");
+        $stmt2->execute(array($username));
+        $user_info = $stmt2->fetch();    
+
 
         if($item['Approve'] != 3){
 
@@ -62,11 +69,11 @@
                     <h2><?php echo $item['Name'] ?></h2>
                     <span class='desc'><?php echo $item['Description'] ?></span>
                     <ul class='list-group item-ul'>
-                        <li class='list-group-item'><i class='fa fa-money-bill edit-icon'> </i> <span> Price: </span><b><?php echo $item['Price'] ?>$</b></li>
+                        <li class='list-group-item money-icon'><i class='fa fa-money-bill edit-icon'></i><span class='money-icon'>Price: </span><b><?php echo $item['Price'] ?>$</b></li>
                         <li class='list-group-item'><i class='fa fa-calendar-check edit-icon'> </i> <span> Date: </span><?php echo $item['Add_Date'] ?></li>
                         <li class='list-group-item'><i class='fa fa-earth edit-icon'> </i> <span> Country: </span><?php echo $item['Country'] ?></li>
-                        <li class='list-group-item'><i class='fa fa-tags edit-icon'> </i> <span> Category: </span><a href="categories.php?cat_id=<?php echo $item['Cat_ID'] ?>&cat_name=<?php echo $item['Cat_Name'] ?>"><?php echo $item['Cat_Name'] ?></a></li>
-                        <li class='list-group-item'><i class='fa fa-user edit-icon'> </i> <span>Publisher: </span><a href='#'><?php echo $item['Username'] ?></a></li>
+                        <li class='list-group-item'><i class='fa fa-tags edit-icon'> </i> <span> Category: </span><a class='item-a'href="categories.php?cat_id=<?php echo $item['Cat_ID'] ?>&cat_name=<?php echo $item['Cat_Name'] ?>"><?php echo $item['Cat_Name'] ?></a></li>
+                        <li class='list-group-item'><i class='fa fa-user edit-icon'> </i> <span>Publisher: </span><a class='item-a'href='#'><?php echo $item['Username'] ?> <img class='img-responsive rounded-circle user-items-img' src="admin/uploads/avatars/<?php echo $user_info['Avatar'] ?>" alt="User Image"></a></li>
                         <li class='list-group-item'><i class='fa fa-user edit-icon'> </i> <span>Tags: </span>
                         <?php
                             if(!empty($item['Tags'])){

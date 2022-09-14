@@ -20,13 +20,10 @@
      if(isset($_GET['cat_name'])){echo $_GET['cat_name'];} 
     echo "</h1>";
 
-    $catid = isset($_GET['cat_id']) && is_numeric($_GET['cat_id'])? intval($_GET['cat_id']) : 0;
+    $catid = isset($_GET['cat_id']) && is_numeric($_GET['cat_id'])? intval($_GET['cat_id']) : 0;  
 
-    // get all items in the main page of categories.php
-  
 
     
-
     $items = getAllFrom('*', 'items', 'WHERE Cat_ID = ' . $catid  . ' AND Approve = 1 ', 'Item_ID');
     if(!empty($items) && $catid != 0){
         
