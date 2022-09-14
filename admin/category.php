@@ -211,6 +211,10 @@ if(isset($_SESSION['user'])){
             $comments       = $_POST['comments'];
             $ads            = $_POST['ads'];
             $parent         = $_POST['parent'];
+        
+            if($parent == '...'){
+                $parent = 0;
+            }
 
 
             // Check if category name exist in the database

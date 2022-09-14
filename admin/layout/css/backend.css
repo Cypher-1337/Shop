@@ -186,7 +186,7 @@ h1{
 .empty-box .btn{
     margin-left: 10px;
     margin-top: 5px;
-    width: 150px;
+    width: fit-content;
 }
 /* End empty manage page */
 
